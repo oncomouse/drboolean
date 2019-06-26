@@ -1,0 +1,23 @@
+{
+  "name": "drboolean-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require babel-core/register"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.1"
+  },
+  "dependencies": {
+    "biginteger": "^1.0.3",
+    "crocks": "^0.9.4",
+    "fantasy-land": "^3.5.0",
+    "folktale": "^2.3.0",
+    "moment": "^2.24.0",
+    "ramda": "^0.26.1"
+  }
+}
