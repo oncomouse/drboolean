@@ -11,7 +11,7 @@ const has = curry((key, obj) => Object.prototype.hasOwnProperty.call(obj, key));
 // getType :: Union a => a -> String
 const getType = compose(head, split(' '), toString);
 const ANY = 'ANY';
-// matchWith :: Union a => {String: (b -> *)} -> a -> *
+// matchWith :: Union a => {String: (b -> *)} -> a b -> *
 const matchWith = curry((defs, value) => {
   const type = getType(value);
   if (has(type, defs)) {
