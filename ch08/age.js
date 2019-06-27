@@ -15,7 +15,7 @@ var getAge = R.curry((now, user) => R.compose(
     (date) => now.diff(date, 'years')
   ),
   R.chain((date) => date.isValid() ? Result.of(date) : Err('Unable to parse date.')),
-  R.chain((date) => Result.of(moment(date, 'YYYY-MM-DD'))),
+  R.map((date) => moment(date, 'YYYY-MM-DD')),
   safeProp('birthdate')
 )(user));
 
