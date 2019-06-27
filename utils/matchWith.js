@@ -12,7 +12,7 @@ const has = curry((key, obj) => Object.prototype.hasOwnProperty.call(obj, key));
 const getType = compose(head, split(' '), toString);
 const ANY = 'ANY';
 // matchWith :: Union a => {String: (b -> *)} -> a -> *
-const matchWith = (defs, value) => {
+const matchWith = curry((defs, value) => {
   const type = getType(value);
   if (has(type, defs)) {
     return defs[type](value);
@@ -23,7 +23,7 @@ const matchWith = (defs, value) => {
 
 If you want a default to run, please import ANY from this file and add that to the object of definitions passed to matchWith.`);
   }
-}
+})
 // Handle exports:
 matchWith.ANY = ANY;
 module.exports = matchWith;
