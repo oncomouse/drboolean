@@ -1,16 +1,16 @@
-var Result = require('crocks/Result');
-var either = require('crocks/pointfree/either');
-var R = require('ramda');
-var moment = require('moment');
+const Result = require('crocks/Result');
+const either = require('crocks/pointfree/either');
+const R = require('ramda');
+const moment = require('moment');
 
-var { Err, Ok } = Result;
+const { Err, Ok } = Result;
 
 const safeProp = R.curry(R.compose(
   R.ifElse(R.equals(undefined), R.always(Err('Could Not Find Prop')), Ok),
   R.prop
 ));
 
-var getAge = R.curry((now, user) => R.compose(
+const getAge = R.curry((now, user) => R.compose(
   R.map(
     (date) => now.diff(date, 'years')
   ),
