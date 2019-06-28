@@ -1,6 +1,6 @@
 const Http = require('./Http');
 const Assign = require('crocks/Assign');
-const { curry } = require('curry');
+const curry = require('crocks/helpers/curry');
 const arbitraryConcat = require('./arbitraryConcat');
 
 const requestBatch = (...requests) => arbitraryConcat(Assign, requests);
