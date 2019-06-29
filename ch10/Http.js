@@ -1,24 +1,20 @@
 const fetch = require('isomorphic-fetch');
 const Async = require('crocks/Async');
-const nAry = require('crocks/helpers/nAry');
-const compose = require('crocks/helpers/compose');
+const composeP = require('crocks/helpers/composeP');
 
-const { fromPromise, Rejected, Resolved } = Async;
-const fetchAsync = nAry(2, fromPromise(fetch));
-
-// Have to use this because response.json() returns a promise:
-const promiseToAsync = p => Async((rej, res) => p.then(res).catch(res));
-const jsonAsync = compose(promiseToAsync, x => x.json());
+const { fromPromise } = Async;
 
 const Http = {};
-Http.request = (url, options={}) => fetchAsync(url, options)
-  .chain((response) => {
+Http.request = fromPromise((url, options={}) => composeP(
+  (response) => response.json(),
+  (response) => {
     if (response.status >= 200 && response.status < 300) {
-      return Resolved(response);
+      return Promise.resolve(response)
     } else {
-      return Rejected(`Error fetching ${url}: ${response.status} ${response.statusText}`);
+      return Promise.reject(new Error(response.statusText))
     }
-  })
-  .chain(jsonAsync);
+  },
+  fetch
+)(url, options));
 
 module.exports = Http;
